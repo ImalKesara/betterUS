@@ -3,14 +3,31 @@
 	import { signupSchema } from './schemas.js';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { Control, Field, FieldErrors, Label } from 'formsnap';
+	import { createToaster, Toaster } from '@skeletonlabs/skeleton-svelte';
+	import { LoaderCircle } from 'lucide-svelte';
 
 	let { data } = $props();
+	const toaster = createToaster({ placement: 'top' });
 	const form = superForm(data.form, {
-		validators: zodClient(signupSchema)
+		validators: zodClient(signupSchema),
+		onUpdated: async ({ form: f }) => {
+			if (f.valid) {
+				console.log('Form is valid');
+			} else {
+				console.log(f.errors);
+				toaster.error({
+					title: f.message,
+					description: 'Please check the form for errors.',
+					closable: false
+				});
+			}
+		}
 	});
 
-	const { form: formData, enhance } = form;
+	const { form: formData, enhance, delayed } = form;
 </script>
+
+<Toaster {toaster} classes="bg-red-400 text-white text-center"></Toaster>
 
 <div class="flex min-h-screen items-center justify-center">
 	<div class="space-y-4 card preset-outlined-surface-50-950 bg-white p-10">
@@ -50,7 +67,16 @@
 				</Control>
 				<FieldErrors />
 			</Field>
-			<button type="submit" class="btn preset-filled-primary-500">Signup</button>
+
+			{#if $delayed}
+				<button class="btn preset-filled-primary-500" disabled>
+					<LoaderCircle class="animate-spin" size="16" />
+					Please wait...	
+				</button>
+			{:else}
+				<button type="submit" class="btn preset-filled-primary-500">Sign up</button>
+			{/if}
+
 			<p class="mt-1 text-center text-sm">
 				Already have an account? <a href="/auth/login" class="font-semibold">Login</a>
 			</p>

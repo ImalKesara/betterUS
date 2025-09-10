@@ -1,10 +1,11 @@
-import { fail, superValidate } from 'sveltekit-superforms';
+import { fail, message, superValidate } from 'sveltekit-superforms';
 import { SESSION_COOKIE, createAdminClient } from '$lib/server/appwrite.js';
 import { ID, OAuthProvider } from 'node-appwrite';
 import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { signupSchema } from './schemas';
 import { redirect } from '@sveltejs/kit';
+import { BASE_URL } from '$env/static/private';
 
 export const load: PageServerLoad = async () => {
 	return {
@@ -26,6 +27,12 @@ export const actions: Actions = {
 
 			const session = await account.createEmailPasswordSession(form.data.email, form.data.password);
 
+			const promise = account.createVerification(`${BASE_URL}/auth/verify`);
+
+			promise
+				.then(() => console.log('Verification email sent successfully'))
+				.catch((error) => console.log(error));
+
 			cookies.set(SESSION_COOKIE, session.secret, {
 				sameSite: 'strict',
 				expires: new Date(session.expire),
@@ -33,8 +40,11 @@ export const actions: Actions = {
 				path: '/'
 			});
 		} catch (error) {
-			console.error('Error creating account:', error);
-			if (error.code === 409) return fail(409, { form, message: 'User already exists.' });
+			if (error.response) {
+				const errorMessage = JSON.parse(error.response);
+				return message(form, errorMessage.message, { status: error.code });
+			}
+
 			return fail(500, { form, message: 'Failed to create account. Please try again.' });
 		}
 

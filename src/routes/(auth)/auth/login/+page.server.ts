@@ -5,6 +5,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { loginSchema } from './schemas';
 import { redirect } from '@sveltejs/kit';
 
+
 export const load: PageServerLoad = async () => {
 	return {
 		form: await superValidate(zod(loginSchema))

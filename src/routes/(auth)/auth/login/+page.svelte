@@ -4,10 +4,11 @@
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { Control, Field, FieldErrors, Label } from 'formsnap';
 	import { Toaster, createToaster } from '@skeletonlabs/skeleton-svelte';
+	import { LoaderCircle } from 'lucide-svelte';
 
 	let { data } = $props();
 
-	const toaster = createToaster({ placement: 'top'});
+	const toaster = createToaster({ placement: 'top' });
 
 	const form = superForm(data.form, {
 		validators: zodClient(loginSchema),
@@ -19,14 +20,13 @@
 				toaster.error({
 					title: f.message,
 					description: 'Please check the form for errors.',
-					closable: false,
-				
+					closable: false
 				});
 			}
 		}
 	});
 
-	const { form: formData, enhance, message } = form;
+	const { form: formData, enhance, message, delayed } = form;
 </script>
 
 <Toaster {toaster} classes="bg-red-400 text-white text-center"></Toaster>
@@ -59,7 +59,16 @@
 				</Control>
 				<FieldErrors />
 			</Field>
-			<button type="submit" class="btn preset-filled-primary-500">Login</button>
+
+			{#if $delayed}
+				<button class="btn preset-filled-primary-500" disabled>
+					<LoaderCircle class="animate-spin" size="16" />
+					Please wait...
+				</button>
+			{:else}
+				<button type="submit" class="btn preset-filled-primary-500">Login</button>
+			{/if}
+
 			<p class="mt-1 text-center text-sm">
 				Don't have an account? <a href="/auth/signup" class="font-semibold">Sign up</a>
 			</p>

@@ -1,5 +1,5 @@
 // src/lib/server/appwrite.js
-import { Client, Account } from 'node-appwrite';
+import { Client, Account, Users } from 'node-appwrite';
 import { APPWRITE_KEY } from '$env/static/private';
 import { PUBLIC_APPWRITE_ENDPOINT, PUBLIC_APPWRITE_PROJECT_ID } from '$env/static/public';
 import type { RequestEvent } from '@sveltejs/kit';

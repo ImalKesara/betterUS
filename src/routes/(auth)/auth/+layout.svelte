@@ -14,8 +14,8 @@
 </svelte:head>
 
 <!-- Main Content -->
-<main class="mx-auto flex-1 border-y-0 p-4 relative max-w-2xl">
-	<div class=" absolute blur-3xl top-60 left-30 rounded-full  h-[450px] w-[450px] -z-10 bg-primary-100 ">1</div>
+<main class="mx-auto flex-1 border-y-0 p-4 relative max-w-2xl text-black">
+	<div class=" absolute blur-3xl top-60 left-30 rounded-full  h-[450px] w-[450px] -z-10 bg-primary-100 dark:bg-secondary-50-950">1</div>
 	{@render children?.()}
 </main>
 

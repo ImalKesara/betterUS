@@ -5,7 +5,6 @@ export async function handle({ event, resolve }) {
 		const { account } = createSessionClient(event);
 		event.locals.user = await account.get();
 	} catch (e) {
-		console.error(e);
 		event.locals.user = null;
 	}
 
