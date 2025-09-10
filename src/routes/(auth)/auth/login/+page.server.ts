@@ -41,6 +41,6 @@ export const actions: Actions = {
 			return fail(500, { form, message: 'Failed to log in. Please try again later.' });
 		}
 
-		redirect(302, '/');
+		redirect(302, '/?login=success');
 	}
 };

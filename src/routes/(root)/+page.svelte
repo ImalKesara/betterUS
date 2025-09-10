@@ -3,6 +3,7 @@
 	import { postModal } from '$lib/state/modal.svelte';
 	import { createToaster, Toaster } from '@skeletonlabs/skeleton-svelte';
 	import { onMount } from 'svelte';
+	import { page } from '$app/state';
 
 	let { data } = $props();
 	const toaster = createToaster({ placement: 'top' });
@@ -16,17 +17,18 @@
 	};
 
 	onMount(() => {
-		if (data.user) {
+		if (page.url.searchParams.get('login') === 'success') {
 			toaster.success({
-				title: `Welcome back ${data.user.name}`,
+				title: `Welcome ${data.user.name}`,
 				description: 'You have successfully logged in!',
-				closable: true
+				closable: false
 			});
+			history.replaceState({}, '', '/');
 		}
 	});
 </script>
 
-<Toaster {toaster}></Toaster>
+<Toaster {toaster} classes="bg-green-400 text-white "></Toaster>
 
 <div class="my-5 grid">
 	<div class="">

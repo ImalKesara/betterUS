@@ -1,5 +1,5 @@
 import { fail, message, superValidate } from 'sveltekit-superforms';
-import { SESSION_COOKIE, createAdminClient } from '$lib/server/appwrite.js';
+import { SESSION_COOKIE, createAdminClient, createSessionClient } from '$lib/server/appwrite.js';
 import { ID, OAuthProvider } from 'node-appwrite';
 import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
@@ -14,8 +14,8 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, cookies }) => {
-		const form = await superValidate(request, zod(signupSchema));
+	default: async (event) => {
+		const form = await superValidate(event.request, zod(signupSchema));
 		if (!form.valid) {
 			return fail(400, { form });
 		}
@@ -27,18 +27,22 @@ export const actions: Actions = {
 
 			const session = await account.createEmailPasswordSession(form.data.email, form.data.password);
 
-			const promise = account.createVerification(`${BASE_URL}/auth/verify`);
-
-			promise
-				.then(() => console.log('Verification email sent successfully'))
-				.catch((error) => console.log(error));
-
-			cookies.set(SESSION_COOKIE, session.secret, {
+			event.cookies.set(SESSION_COOKIE, session.secret, {
 				sameSite: 'strict',
 				expires: new Date(session.expire),
 				secure: true,
 				path: '/'
 			});
+
+			const { account: sessionAccount } = createSessionClient(event);
+
+			const promise = sessionAccount.createVerification(`${BASE_URL}/auth/verify`);
+
+			promise
+				.then(() => console.log('Verification email sent successfully'))
+				.catch((error) => console.log(error));
+
+				
 		} catch (error) {
 			if (error.response) {
 				const errorMessage = JSON.parse(error.response);
