@@ -38,6 +38,7 @@
 					rows="4"
 					placeholder="Make the world kinder, one post at a time"
 					bind:value={text}
+					maxlength="300"
 				></textarea>
 			</label>
 		</div>

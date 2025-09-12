@@ -8,6 +8,7 @@
 
 	let { data, children }: { data: LayoutData; children: Snippet } = $props();
 	const user = data.user;
+	console.log(user);
 </script>
 
 <svelte:head>

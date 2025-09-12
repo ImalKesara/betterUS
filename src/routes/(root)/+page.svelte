@@ -4,6 +4,7 @@
 	import { createToaster, Toaster } from '@skeletonlabs/skeleton-svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
+	import { replaceState, pushState } from '$app/navigation';
 
 	let { data } = $props();
 	const toaster = createToaster({ placement: 'top' });
@@ -12,8 +13,15 @@
 		postModal.setTrue();
 	};
 
-	const submitPost = (data) => {
-		console.log(data);
+	const submitPost = async (content: string) => {
+		console.log(content);
+		await fetch('api/posts', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ content })
+		});
 	};
 
 	onMount(() => {
@@ -23,12 +31,16 @@
 				description: 'You have successfully logged in!',
 				closable: false
 			});
-			history.replaceState({}, '', '/');
+			replaceState('/', {});
 		}
 	});
 </script>
 
-<Toaster {toaster} classes="bg-green-400 text-white "></Toaster>
+<Toaster
+	{toaster}
+	messageClasses="text-center flex item-center justify-center"
+	classes="bg-green-400 text-white "
+></Toaster>
 
 <div class="my-5 grid">
 	<div class="">
