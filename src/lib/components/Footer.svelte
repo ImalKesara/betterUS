@@ -1,6 +1,6 @@
 <aside class="hidden p-4 lg:block">
 	<div class="mb-6">
-		<h2 class="mb-3 text-lg font-semibold">Trends</h2>
+		<h2 class="mb-3 text-lg font-semibold">Today What I did</h2>
 	</div>
 	<div>
 		<h2 class="mb-3 text-lg font-semibold">Who to Follow</h2>
