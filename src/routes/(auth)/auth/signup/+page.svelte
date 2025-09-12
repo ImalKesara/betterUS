@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms';
 	import { signupSchema } from './schemas.js';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { Control, Field, FieldErrors, Label } from 'formsnap';
@@ -71,7 +71,7 @@
 			{#if $delayed}
 				<button class="btn preset-filled-primary-500" disabled>
 					<LoaderCircle class="animate-spin" size="16" />
-					Please wait...	
+					Please wait...
 				</button>
 			{:else}
 				<button type="submit" class="btn preset-filled-primary-500">Sign up</button>
