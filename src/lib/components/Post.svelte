@@ -32,7 +32,6 @@
 		<div class="grid">
 			<div></div>
 			<label class=" label">
-				<span class="label-text">Share your actions</span>
 				<textarea
 					class="textarea w-[600px]"
 					rows="4"

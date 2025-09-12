@@ -1,24 +1,5 @@
 <script lang="ts">
-	import { AppBar } from '@skeletonlabs/skeleton-svelte';
-	import { Navigation } from '@skeletonlabs/skeleton-svelte';
-
-	import {
-		ArrowLeft,
-		Paperclip,
-		Bell,
-		Calendar,
-		CircleUser,
-		Menu,
-		Icon,
-		Folder,
-		Image,
-		Music,
-		Video,
-		Settings,
-		Heart
-	} from 'lucide-svelte';
 	import Mode from './Mode.svelte';
-	import { page } from '$app/state';
 	import '@fontsource/kalam';
 	import { Avatar } from '@skeletonlabs/skeleton-svelte';
 	import { Skull } from 'lucide-svelte';
@@ -84,7 +65,7 @@
 					<div class="user-email">@{user.email.split('@')[0]}</div>
 				</div>
 			</div>
-			<div class="flex flex-col items-center gap-4">
+			<div class="flex flex-col items-center gap-2">
 				<button class="btn preset-filled-primary-500" onclick={loginOut}>Logout</button>
 				<Mode />
 			</div>
@@ -101,7 +82,6 @@
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		display: flex;
 		flex-direction: column;
-		z-index: 1000;
 	}
 
 	.sidebar-nav {

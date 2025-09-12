@@ -1,7 +1,6 @@
-import { createSessionClient, SESSION_COOKIE } from '$lib/server/appwrite';
+import { createSessionClient } from '$lib/server/appwrite';
 import { json } from '@sveltejs/kit';
 import type { RequestEvent } from './$types';
-import { Client, Account } from 'node-appwrite';
 
 export async function POST(event: RequestEvent) {
 	const data = await event.request.json();

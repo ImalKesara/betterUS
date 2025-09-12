@@ -29,6 +29,8 @@ export async function POST(event: RequestEvent) {
 			data: {
 				userId: user?.$id,
 				content,
+				name: user?.name,
+				email: user?.email,
 				mediaUrl: null,
 				likesCount: 0,
 				commentsCount: 0

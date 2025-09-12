@@ -85,15 +85,19 @@
 		</div>
 	{:else}
 		{#each posts as post}
-			<div class="p-3 grid card preset-outlined-surface-100-900" transition:fade>
+			<div class="my-2 grid card preset-outlined-surface-100-900 p-3" transition:fade>
 				<!-- Avatar -->
-				<div class="flex items-center gap-x-2 justify-start mb-2">
-					<Avatar size="size-12" name={post.name} background="preset-filled-secondary-500">
-						{data.user.$id === post.userId ? data.user.name[0].toUpperCase() : '<3'}
+				<div class="mb-2 flex items-center justify-start gap-x-2">
+					<Avatar
+						size="size-12"
+						name={post.name}
+						background="preset-filled-secondary-500"
+					>
+						{post.name[0].toUpperCase()}
 					</Avatar>
 					<div class="">
-						<p class="font-semibold">{data.user.name}</p>
-						<p class="text-sm text-gray-500">@{data.user.email.split('@')[0]}</p>
+						<p class="font-semibold">{post.name}</p>
+						<p class="text-sm text-gray-500">@{post.email.split('@')[0]}</p>
 					</div>
 				</div>
 

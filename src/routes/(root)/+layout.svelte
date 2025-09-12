@@ -15,7 +15,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="mx-auto flex min-h-screen max-w-5xl">
+<div class="mx-auto flex min-h-screen max-w-6xl">
 	<!-- Left Sidebar -->
 	<Navbar {user} />
 
