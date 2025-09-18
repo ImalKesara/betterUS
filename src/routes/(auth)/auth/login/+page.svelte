@@ -1,14 +1,12 @@
 <script lang="ts">
-	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms';
 	import { loginSchema } from './schemas.js';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { Control, Field, FieldErrors, Label } from 'formsnap';
-	import { Toaster, createToaster } from '@skeletonlabs/skeleton-svelte';
 	import { LoaderCircle } from 'lucide-svelte';
+	import { toast } from 'svelte-sonner';
 
 	let { data } = $props();
-
-	const toaster = createToaster({ placement: 'top' });
 
 	const form = superForm(data.form, {
 		validators: zodClient(loginSchema),
@@ -17,19 +15,13 @@
 				console.log('Form is valid');
 			} else {
 				console.log(f.errors);
-				toaster.error({
-					title: f.message,
-					description: 'Please check the form for errors.',
-					closable: false
-				});
+				toast.error(f.message || 'Form is invalid');
 			}
 		}
 	});
 
-	const { form: formData, enhance, message, delayed } = form;
+	const { form: formData, enhance, delayed } = form;
 </script>
-
-<Toaster {toaster} classes="bg-red-400 text-white text-center"></Toaster>
 
 <div class="flex min-h-screen items-center justify-center">
 	<div class="space-y-4 card preset-outlined-surface-50-950 bg-white p-10">

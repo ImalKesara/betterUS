@@ -3,17 +3,19 @@
 	import { postModal } from '$lib/state/modal.svelte';
 	import { Jumper } from 'svelte-loading-spinners';
 	import { fade } from 'svelte/transition';
-	import { Avatar, createToaster, Toaster } from '@skeletonlabs/skeleton-svelte';
+	import { Avatar } from '@skeletonlabs/skeleton-svelte';
 	import { Heart, MessageSquare, Repeat } from 'lucide-svelte';
+
+	import { toast } from 'svelte-sonner';
 
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
-	import { replaceState, pushState } from '$app/navigation';
+	import { replaceState } from '$app/navigation';
+	import { resolve } from '$app/paths';
 
 	let { data } = $props();
 	let loading: boolean = $state(true);
 	let posts: any[] = $state([]);
-	const toaster = createToaster({ placement: 'top' });
 
 	const handleClick = () => {
 		postModal.setTrue();
@@ -50,22 +52,12 @@
 
 	onMount(async () => {
 		if (page.url.searchParams.get('login') === 'success') {
-			toaster.success({
-				title: `Welcome ${data.user.name}`,
-				description: 'You have successfully logged in!',
-				closable: false
-			});
-			replaceState('/', {});
+			toast.success(`Welcome ${data.user.name}`);
+			replaceState(resolve('/'), {});
 		}
 		listPosts();
 	});
 </script>
-
-<Toaster
-	{toaster}
-	messageClasses="text-center flex item-center justify-center"
-	classes="bg-green-400 text-white "
-></Toaster>
 
 <div class="my-5 grid">
 	<div class="">
@@ -87,11 +79,7 @@
 			<div class="my-2 grid card preset-outlined-surface-100-900 p-3" transition:fade>
 				<!-- Avatar -->
 				<div class="mb-2 flex items-center justify-start gap-x-2">
-					<Avatar
-						size="size-12"
-						name={post.name}
-						background="preset-filled-secondary-500"
-					>
+					<Avatar size="size-12" name={post.name} background="preset-filled-secondary-500">
 						{post.name[0].toUpperCase()}
 					</Avatar>
 					<div class="">
