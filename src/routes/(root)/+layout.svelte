@@ -5,7 +5,7 @@
 	import type { LayoutData } from './$types';
 	import type { Snippet } from 'svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import { Toaster } from 'svelte-sonner';
+	import { Toaster } from 'svelte-5-french-toast';
 
 	let { data, children }: { data: LayoutData; children: Snippet } = $props();
 	const user = data.user;
@@ -15,14 +15,14 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<Toaster richColors></Toaster>
+<Toaster />
 
 <div class="mx-auto flex min-h-screen max-w-6xl">
 	<!-- Left Sidebar -->
 	<Navbar {user} />
 
 	<!-- Main Content -->
-	<main class="mx-auto max-w-2xl flex-1 preset-outlined-surface-100-900 border-y-0 p-4">
+	<main class="mx-auto max-w-2xl flex-1 border-y-0 p-4">
 		{@render children?.()}
 	</main>
 

@@ -1,18 +1,5 @@
 <script lang="ts">
-	import { Switch } from '@skeletonlabs/skeleton-svelte';
-	let checked: boolean = $state(false);
-
-	$effect(() => {
-		const mode = localStorage.getItem('mode') || 'light';
-		checked = mode === 'dark';
-	});
-
-	const onCheckedChange = (event: { checked: boolean }) => {
-		const mode = event.checked ? 'dark' : 'light';
-		document.documentElement.setAttribute('data-mode', mode);
-		localStorage.setItem('mode', mode);
-		checked = event.checked;
-	};
+	import { enhance } from '$app/forms';
 </script>
 
 <svelte:head>
@@ -22,4 +9,6 @@
 	</script>
 </svelte:head>
 
-<Switch {checked} {onCheckedChange} name="mode" controlActive="bg-surface-200"></Switch>
+<div class="mode-toggle">
+	<button onclick={() => window?.toggleTheme && window.toggleTheme()}>Theme</button>
+</div>

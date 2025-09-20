@@ -3,15 +3,12 @@
 	import { postModal } from '$lib/state/modal.svelte';
 	import { Jumper } from 'svelte-loading-spinners';
 	import { fade } from 'svelte/transition';
-	import { Avatar } from '@skeletonlabs/skeleton-svelte';
 	import { Heart, MessageSquare, Repeat } from 'lucide-svelte';
-
-	import { toast } from 'svelte-sonner';
-
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { replaceState } from '$app/navigation';
 	import { resolve } from '$app/paths';
+	import toast from 'svelte-5-french-toast';
 
 	let { data } = $props();
 	let loading: boolean = $state(true);
@@ -61,13 +58,14 @@
 
 <div class="my-5 grid">
 	<div class="">
-		<label class="col-span-4 label">
+		<label class="label col-span-4">
 			<span class="label-text text-center">Share your good acts to people</span>
-			<input class="input btn" type="text" placeholder="Your thoughts..." onclick={handleClick} />
+			<!-- <input class="input btn" type="text" placeholder="Your thoughts..." onclick={handleClick} /> -->
+			<button class="btn" onclick={handleClick}>Your thoughts...</button>
 		</label>
 	</div>
 
-	<hr class="my-8 hr" />
+	<hr class="hr my-8" />
 
 	<!-- list post -->
 	{#if loading}
@@ -76,12 +74,12 @@
 		</div>
 	{:else}
 		{#each posts as post}
-			<div class="my-2 grid card preset-outlined-surface-100-900 p-3" transition:fade>
+			<div class="my-2 grid p-3" transition:fade>
 				<!-- Avatar -->
 				<div class="mb-2 flex items-center justify-start gap-x-2">
-					<Avatar size="size-12" name={post.name} background="preset-filled-secondary-500">
+					<!-- <Avatar size="size-12" name={post.name} background="preset-filled-secondary-500">
 						{post.name[0].toUpperCase()}
-					</Avatar>
+					</Avatar> -->
 					<div class="">
 						<p class="font-semibold">{post.name}</p>
 						<p class="text-sm text-gray-500">@{post.email.split('@')[0]}</p>
@@ -90,7 +88,7 @@
 
 				<div class="grid">
 					<p class="break-words">{post.content}</p>
-					<hr class="mt-3 hr" />
+					<hr class="hr mt-3" />
 					<div class="my-2 grid grid-cols-3 justify-items-center">
 						<Heart size="16" />
 						<Repeat size="16" />

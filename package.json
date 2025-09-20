@@ -16,8 +16,6 @@
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
     "@eslint/js": "^9.18.0",
-    "@skeletonlabs/skeleton": "^3.2.0",
-    "@skeletonlabs/skeleton-svelte": "^1.5.1",
     "@sveltejs/adapter-auto": "^6.0.0",
     "@sveltejs/kit": "^2.22.0",
     "@sveltejs/vite-plugin-svelte": "^6.0.0",
@@ -42,12 +40,14 @@
   "dependencies": {
     "@fontsource/kalam": "^5.2.6",
     "appwrite": "^18.1.1",
-    "bits-ui": "^2.9.6",
     "formsnap": "^2.0.1",
     "lucide-svelte": "^0.542.0",
     "node-appwrite": "^19.0.0",
+    "svelte-5-french-toast": "^2.0.6",
     "svelte-sonner": "^1.0.5",
+    "svelte-ux": "^2.0.0-next.19",
     "sveltekit-superforms": "^2.27.1",
+    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.25.76"
   }
 }

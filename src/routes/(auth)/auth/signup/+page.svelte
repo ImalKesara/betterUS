@@ -3,37 +3,36 @@
 	import { signupSchema } from './schemas.js';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { Control, Field, FieldErrors, Label } from 'formsnap';
-	import { createToaster, Toaster } from '@skeletonlabs/skeleton-svelte';
 	import { LoaderCircle } from 'lucide-svelte';
+	import toast from 'svelte-5-french-toast';
+	import { Button, Input, TextField } from 'svelte-ux';
+	import Google from '$lib/components/icons/Google.svelte';
+	import Github from '$lib/components/icons/Github.svelte';
 
 	let { data } = $props();
-	const toaster = createToaster({ placement: 'top' });
 	const form = superForm(data.form, {
 		validators: zodClient(signupSchema),
 		onUpdated: async ({ form: f }) => {
-			if (f.valid) {
-				console.log('Form is valid');
-			} else {
-				console.log(f.errors);
-				toaster.error({
-					title: f.message,
-					description: 'Please check the form for errors.',
-					closable: false
-				});
+			if (!f.valid) {
+				toast.error(f.message || 'Form is invalid');
 			}
 		}
 	});
 
-	const { form: formData, enhance, delayed } = form;
+	const { form: formData, enhance, delayed, errors } = form;
 </script>
 
-<Toaster {toaster} classes="bg-red-400 text-white text-center"></Toaster>
-
 <div class="flex min-h-screen items-center justify-center">
-	<div class="space-y-4 card preset-outlined-surface-50-950 bg-white p-10">
+	<div class="w-[420px] space-y-4 rounded-xl p-10">
 		<div class="grid grid-cols-2 gap-4">
-			<button class="btn preset-outlined">Google</button>
-			<button class="btn preset-filled">Github</button>
+			<Button color="default" variant="fill-light">
+				<p><Google width={24} height={24} /></p>
+				<p>Google</p>
+			</Button>
+			<Button color="default" variant="fill-light">
+				<p><Github width={24} height={24} /></p>
+				<p>Github</p>
+			</Button>
 		</div>
 		<hr class="hr" />
 		<form method="POST" class="grid gap-1" use:enhance>
@@ -41,8 +40,13 @@
 			<Field {form} name="name">
 				<Control>
 					{#snippet children({ props })}
-						<Label>Full Name</Label>
-						<input class="input" {...props} type="text" bind:value={$formData.name} />
+						<TextField
+							type="text"
+							{...props}
+							label="Full name"
+							bind:value={$formData.name}
+							error={$errors.name}
+						/>
 					{/snippet}
 				</Control>
 				<FieldErrors />
@@ -51,8 +55,13 @@
 			<Field {form} name="email">
 				<Control>
 					{#snippet children({ props })}
-						<Label>Email</Label>
-						<input class="input" {...props} type="email" bind:value={$formData.email} />
+						<TextField
+							type="email"
+							{...props}
+							label="Email address"
+							bind:value={$formData.email}
+							error={$errors.email}
+						/>
 					{/snippet}
 				</Control>
 				<FieldErrors />
@@ -61,20 +70,25 @@
 			<Field {form} name="password">
 				<Control>
 					{#snippet children({ props })}
-						<Label>Password</Label>
-						<input class="input" {...props} type="password" bind:value={$formData.password} />
+						<TextField
+							type="password"
+							{...props}
+							label="Password"
+							bind:value={$formData.password}
+							error={$errors.password}
+						/>
 					{/snippet}
 				</Control>
 				<FieldErrors />
 			</Field>
 
 			{#if $delayed}
-				<button class="btn preset-filled-primary-500" disabled>
+				<Button color="primary" variant="fill-light" disabled>
 					<LoaderCircle class="animate-spin" size="16" />
 					Please wait...
-				</button>
+				</Button>
 			{:else}
-				<button type="submit" class="btn preset-filled-primary-500">Sign up</button>
+				<Button color="primary" variant="fill-light" type="submit">Sign up</Button>
 			{/if}
 
 			<p class="mt-1 text-center text-sm">
@@ -83,9 +97,3 @@
 		</form>
 	</div>
 </div>
-
-<style lang="postcss">
-	input {
-		@apply w-[400px];
-	}
-</style>

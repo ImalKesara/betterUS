@@ -1,14 +1,19 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 
-import type { Models } from "appwrite";
+import type { Models } from 'appwrite';
 
 // for information about these interfaces
 declare global {
 	namespace App {
+		interface Window {
+			toggleTheme?(): void;
+		}
+
 		// interface Error {}
 		interface Locals {
-			user : Models.User<Models.Preferences> | null
+			user: Models.User<Models.Preferences> | null;
 		}
+
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}

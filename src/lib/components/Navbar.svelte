@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Mode from './Mode.svelte';
 	import '@fontsource/kalam';
-	import { Avatar } from '@skeletonlabs/skeleton-svelte';
 	import { Skull } from 'lucide-svelte';
 	import { goto } from '$app/navigation';
 
@@ -59,7 +58,7 @@
 		<!-- User Profile -->
 		<div class=" grid gap-y-2 preset-outlined-surface-100-900 border-x-0 border-b-0 p-4 mb-10">
 			<div class="flex gap-x-2 rounded-lg bg-gray-700 p-3">
-				<Avatar name={user.name} style="background-color: #bada55; color: black;" size="size-10" />
+				
 				<div>
 					<div class="user-name">{user.name}</div>
 					<div class="user-email">@{user.email.split('@')[0]}</div>
@@ -73,77 +72,3 @@
 	</aside>
 {/if}
 
-<style>
-	.sidebar {
-		top: 0;
-		left: 0;
-		height: 100vh;
-		width: 280px;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		display: flex;
-		flex-direction: column;
-	}
-
-	.sidebar-nav {
-		flex: 1;
-		padding: 20px 0;
-		overflow-y: auto;
-	}
-
-	.nav-list {
-		list-style: none;
-		margin: 0;
-		padding: 0 16px;
-	}
-
-	.nav-item {
-		margin-bottom: 4px;
-	}
-
-	.nav-link {
-		width: 100%;
-		padding: 12px 16px;
-		background: transparent;
-		border: none;
-		border-radius: 12px;
-		display: flex;
-		align-items: center;
-		gap: 12px;
-		cursor: pointer;
-		font-size: 14px;
-		font-weight: 500;
-		transition: all 0.2s ease;
-		position: relative;
-		overflow: hidden;
-	}
-
-	.nav-link:hover {
-		background: rgba(255, 255, 255, 0.15);
-		color: white;
-		transform: translateX(4px);
-	}
-
-	.nav-icon {
-		font-size: 18px;
-		min-width: 20px;
-		text-align: center;
-	}
-
-	.nav-text {
-		flex: 1;
-		text-align: left;
-		white-space: nowrap;
-	}
-
-	.user-name {
-		color: white;
-		font-size: 14px;
-		font-weight: 600;
-		margin-bottom: 2px;
-	}
-
-	.user-email {
-		color: rgba(255, 255, 255, 0.7);
-		font-size: 12px;
-	}
-</style>
