@@ -27,13 +27,9 @@ export async function POST(event: RequestEvent) {
 			tableId: 'posts',
 			rowId: ID.unique(),
 			data: {
-				userId: user?.$id,
+				userid: [user?.$id],
 				content,
-				name: user?.name,
-				email: user?.email,
-				mediaUrl: null,
-				likesCount: 0,
-				commentsCount: 0
+				imgUrl: null
 			}
 		});
 

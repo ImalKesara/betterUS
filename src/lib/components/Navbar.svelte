@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { Button } from 'svelte-ux';
 	import { Avatar } from 'svelte-ux';
+	import Appwrite from './icons/Appwrite.svelte';
 
 	let { user, profile } = $props();
 
@@ -52,6 +53,9 @@
 			<div class="flex flex-col items-center gap-2">
 				<Button variant="fill" color="primary" onclick={loginOut}>Logout</Button>
 				<Mode />
+				<span class="flex items-center justify-center gap-x-2">
+					Built with <Appwrite width={17} height={17} /></span
+				>
 			</div>
 		</div>
 	</aside>

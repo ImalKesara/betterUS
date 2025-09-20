@@ -9,6 +9,7 @@
 	import { replaceState } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import toast from 'svelte-5-french-toast';
+	import { Button } from 'svelte-ux';
 
 	let { data } = $props();
 	let loading: boolean = $state(true);
@@ -33,14 +34,18 @@
 
 	const submitPost = async (content: string) => {
 		try {
-			await fetch('api/posts', {
+			const response = await fetch('api/posts', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({ content })
 			});
+
+			if (!response.ok) throw new Error('Failed to create post');
+
 			postModal.setFalse();
+			toast.success(response.statusText);
 			await listPosts();
 		} catch (error) {
 			console.log(error);
@@ -57,7 +62,7 @@
 </script>
 
 <div class="my-5 grid">
-	<div class="relative">
+	<div class="mb-4">
 		<label class="label col-span-4">
 			<input
 				type="text"
@@ -72,27 +77,19 @@
 
 	<!-- list post -->
 	{#if loading}
-		<div class="flex items-center justify-between">
-			<Jumper size="60" color="#3b82f6" unit="px" duration="1s" />
-		</div>
+		<Button loading class="mt-10">Loading...</Button>
 	{:else}
 		{#each posts as post}
-			<div class="my-2 grid p-3" transition:fade>
-				<!-- Avatar -->
-				<div class="mb-2 flex items-center justify-start gap-x-2">
-					<div class="">
-						<p class="font-semibold">{post.name}</p>
-						<p class="text-sm text-gray-500">@{post.email.split('@')[0]}</p>
-					</div>
-				</div>
-
+			<div class="my-2 grid p-4 border-[1px] rounded-2xl border-gray-400" transition:fade>
 				<div class="grid">
-					<p class="break-words">{post.content}</p>
-					<hr class="hr mt-3" />
-					<div class="my-2 grid grid-cols-3 justify-items-center">
-						<Heart size="16" />
-						<Repeat size="16" />
-						<MessageSquare size="16" />
+					<p class="break-words mb-3">{post.content}</p>
+					<div>
+						<hr class="border-[1px] border-dashed border-gray-400" />
+						<div class="my-2 grid grid-cols-3 justify-items-center">
+							<Heart size="16" />
+							<Repeat size="16" />
+							<MessageSquare size="16" />
+						</div>
 					</div>
 				</div>
 			</div>

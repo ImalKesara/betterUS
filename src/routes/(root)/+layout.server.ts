@@ -10,8 +10,6 @@ export const load: LayoutServerLoad = async (event) => {
 		rowId: event.locals.user?.$id ?? ''
 	});
 
-	
-
 	return {
 		user: event.locals.user,
 		profile

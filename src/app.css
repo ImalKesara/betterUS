@@ -1,9 +1,8 @@
 @import 'tailwindcss';
 @import '@layerstack/tailwind/core.css';
 @import '@layerstack/tailwind/utils.css';
-@import '@layerstack/tailwind/themes/daisy.css';
+@import '@layerstack/tailwind/themes/basic.css';
 @import '@fontsource/poppins';
-
 @source '../../node_modules/svelte-ux/dist';
 @source '../../node_modules/layerchart/dist';
 

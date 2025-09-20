@@ -1,6 +1,6 @@
 import { fail, message, superValidate } from 'sveltekit-superforms';
 import { SESSION_COOKIE, createAdminClient, createSessionClient } from '$lib/server/appwrite.js';
-import { ID, OAuthProvider } from 'node-appwrite';
+import { ID } from 'node-appwrite';
 import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { signupSchema } from './schemas';
@@ -42,7 +42,7 @@ export const actions: Actions = {
 				.then(() => console.log('Verification email sent successfully'))
 				.catch((error) => console.log(error));
 
-			const userData = await tablesDB.createRow({
+			await tablesDB.createRow({
 				databaseId: '68c2ff7100366d79a1d2',
 				tableId: 'user_profile',
 				rowId: session.userId,
@@ -52,13 +52,8 @@ export const actions: Actions = {
 					avatarUrl: 'https://github.com/evilrabbit.png'
 				}
 			});
-
-			userData
-				.then(() => console.log('User data stored successfully'))
-				.catch((error) => console.log(error));
-
-			//
 		} catch (error) {
+			console.error(error);
 			if (error.response) {
 				const errorMessage = JSON.parse(error.response);
 				return message(form, errorMessage.message, { status: error.code });
