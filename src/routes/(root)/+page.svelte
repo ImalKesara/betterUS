@@ -9,6 +9,7 @@
 	import { replaceState } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import toast from 'svelte-5-french-toast';
+	import { Button } from 'svelte-ux';
 
 	let { data } = $props();
 	let loading: boolean = $state(true);
@@ -59,9 +60,7 @@
 <div class="my-5 grid">
 	<div class="">
 		<label class="label col-span-4">
-			<span class="label-text text-center">Share your good acts to people</span>
-			<!-- <input class="input btn" type="text" placeholder="Your thoughts..." onclick={handleClick} /> -->
-			<button class="btn" onclick={handleClick}>Your thoughts...</button>
+			<input type="text" placeholder="Your thoughts..." onclick={handleClick} />
 		</label>
 	</div>
 

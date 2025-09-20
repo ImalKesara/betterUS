@@ -11,6 +11,7 @@ You can customize your theme as you see fit using CSS variables.
 Dark mode is targeted using with .dark class on :root/<html>
 */
 :root {
+	
 	--color-primary: var(--color-purple-700);
 	--color-secondary: var(--color-orange-500);
 
