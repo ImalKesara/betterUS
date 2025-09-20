@@ -10,7 +10,7 @@
 
 <Dialog
 	bind:open={postModal.value}
-	class="fixed top-5 left-1/2 grid w-full max-w-2xl -translate-x-1/2 gap-y-2 rounded-2xl p-4"
+	class="fixed top-5 left-1/2 grid bg-gray-300 w-full max-w-2xl -translate-x-1/2 gap-y-2 rounded-2xl p-4"
 	persistent
 >
 	<div class="flex justify-between">
@@ -24,7 +24,7 @@
 
 	<TextField
 		label="Share your good acts"
-		class="text-xl"
+		class="text-xl bg-gray-300"
 		multiline
 		classes={{ input: 'h-[100px]' }}
 	/>

@@ -60,7 +60,7 @@
 <div class="my-5 grid">
 	<div class="">
 		<label class="label col-span-4">
-			<input type="text" placeholder="Your thoughts..." onclick={handleClick} />
+			<input type="text" class="w-full p-2" placeholder="Your thoughts..." onclick={handleClick} />
 		</label>
 	</div>
 
