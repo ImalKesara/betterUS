@@ -1,17 +1,14 @@
 @import 'tailwindcss';
 @import '@layerstack/tailwind/core.css';
 @import '@layerstack/tailwind/utils.css';
-@import '@layerstack/tailwind/themes/basic.css'; /* Note: Theme choice explained below */
+@import '@layerstack/tailwind/themes/daisy.css';
+@import '@fontsource/poppins';
 
 @source '../../node_modules/svelte-ux/dist';
-@source '../../node_modules/layerchart/dist'; /* if using LayerChart */
+@source '../../node_modules/layerchart/dist';
 
-/*
-You can customize your theme as you see fit using CSS variables.
-Dark mode is targeted using with .dark class on :root/<html>
-*/
 :root {
-	
+	--font-serif: 'Poppins', sans-serif;
 	--color-primary: var(--color-purple-700);
 	--color-secondary: var(--color-orange-500);
 
@@ -23,10 +20,6 @@ Dark mode is targeted using with .dark class on :root/<html>
 	}
 }
 
-/* [data-fs-error] {
-	color: red;
-}
-
-h1 {
+* {
 	@apply font-serif;
-} */
+}

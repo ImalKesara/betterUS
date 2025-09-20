@@ -8,7 +8,8 @@
 	import { Toaster } from 'svelte-5-french-toast';
 
 	let { data, children }: { data: LayoutData; children: Snippet } = $props();
-	const user = data.user;
+	const { user, profile } = data;
+	console.log(profile);
 </script>
 
 <svelte:head>
@@ -18,14 +19,15 @@
 <Toaster />
 
 <div class="mx-auto flex min-h-screen max-w-6xl">
-	<!-- Left Sidebar -->
-	<Navbar {user} />
+	<Navbar {user} {profile}/>
 
-	<!-- Main Content -->
-	<main class="mx-auto max-w-2xl flex-1 border-y-0 p-4">
+	<main class="mx-auto max-w-2xl flex-1 border-[1px] border-y-0 border-gray-400 p-4">
+		<div class="flex items-center justify-center gap-x-1 p-4">
+			<span class="text-xl font-bold">BetterUs</span>
+			<span class="text-xl">🤍</span>
+		</div>
 		{@render children?.()}
 	</main>
 
-	<!-- Right Sidebar -->
 	<Footer />
 </div>

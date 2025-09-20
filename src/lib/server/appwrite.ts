@@ -16,7 +16,8 @@ export function createAdminClient() {
 	return {
 		get account() {
 			return new Account(client);
-		}
+		},
+		
 	};
 }
 

@@ -1,10 +1,11 @@
 <script lang="ts">
 	import Mode from './Mode.svelte';
 	import '@fontsource/kalam';
-	import { Skull } from 'lucide-svelte';
 	import { goto } from '$app/navigation';
+	import { Button } from 'svelte-ux';
+	import { Avatar } from 'svelte-ux';
 
-	let { user } = $props();
+	let { user, profile } = $props();
 
 	const menuItems = [
 		{ id: 'dashboard', label: 'Home', icon: '📊' },
@@ -23,52 +24,35 @@
 			goto('/auth/login');
 		}
 	};
-	let value = $state('files');
 </script>
 
 {#if user}
-	<aside class="sidebar">
-		<div>
-			<div
-				class="flex items-center justify-center gap-x-1 preset-outlined-surface-100-900 border-x-0 border-t-0 p-4"
-			>
-				<span class="text-xl font-bold">BetterUs</span>
-				<span class="text-xl">🤍</span>
+	<aside class="grid h-screen place-items-center gap-4">
+		<div class="flex gap-2">
+			<img src={profile.avatarUrl} alt="profile" class="h-10 w-10 rounded-full object-cover" />
+			<div class="text-sm">
+				<p>{user.name}</p>
+				<p class="text-gray-400">@{user.email.split('@')[0]}</p>
 			</div>
 		</div>
 
 		<!-- Navigation -->
-		<nav class="sidebar-nav">
-			<ul class="nav-list">
+		<nav>
+			<ul class="grid gap-y-5">
 				{#each menuItems as item}
-					<li class="nav-item">
-						<button class="nav-link">
-							<span class="nav-icon">{item.icon}</span>
-
-							<span class="nav-text">{item.label}</span>
-							{#if item.badge}
-								<span class="badge">{item.badge}</span>
-							{/if}
-						</button>
+					<li>
+						<Button class="w-full items-start justify-start py-3 text-start">{item.label}</Button>
 					</li>
 				{/each}
 			</ul>
 		</nav>
 
 		<!-- User Profile -->
-		<div class=" grid gap-y-2 preset-outlined-surface-100-900 border-x-0 border-b-0 p-4 mb-10">
-			<div class="flex gap-x-2 rounded-lg bg-gray-700 p-3">
-				
-				<div>
-					<div class="user-name">{user.name}</div>
-					<div class="user-email">@{user.email.split('@')[0]}</div>
-				</div>
-			</div>
+		<div class=" mb-10 grid gap-y-2 border-x-0 border-b-0 p-4">
 			<div class="flex flex-col items-center gap-2">
-				<button class="btn preset-filled-primary-500" onclick={loginOut}>Logout</button>
+				<Button variant="fill" color="primary" onclick={loginOut}>Logout</Button>
 				<Mode />
 			</div>
 		</div>
 	</aside>
 {/if}
-

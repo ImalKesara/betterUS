@@ -9,7 +9,6 @@
 	import { replaceState } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import toast from 'svelte-5-french-toast';
-	import { Button } from 'svelte-ux';
 
 	let { data } = $props();
 	let loading: boolean = $state(true);
@@ -58,13 +57,18 @@
 </script>
 
 <div class="my-5 grid">
-	<div class="">
+	<div class="relative">
 		<label class="label col-span-4">
-			<input type="text" class="w-full p-2" placeholder="Your thoughts..." onclick={handleClick} />
+			<input
+				type="text"
+				class="w-full border-b-[1px] border-gray-400 p-2 focus:outline-none"
+				placeholder="Your thoughts..."
+				onclick={handleClick}
+			/>
+
+			<Post handleSubmit={submitPost} />
 		</label>
 	</div>
-
-	<hr class="hr my-8" />
 
 	<!-- list post -->
 	{#if loading}
@@ -76,9 +80,6 @@
 			<div class="my-2 grid p-3" transition:fade>
 				<!-- Avatar -->
 				<div class="mb-2 flex items-center justify-start gap-x-2">
-					<!-- <Avatar size="size-12" name={post.name} background="preset-filled-secondary-500">
-						{post.name[0].toUpperCase()}
-					</Avatar> -->
 					<div class="">
 						<p class="font-semibold">{post.name}</p>
 						<p class="text-sm text-gray-500">@{post.email.split('@')[0]}</p>
@@ -98,5 +99,3 @@
 		{/each}
 	{/if}
 </div>
-
-<Post handleSubmit={submitPost} />

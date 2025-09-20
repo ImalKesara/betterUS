@@ -34,7 +34,7 @@ export const actions: Actions = {
 				path: '/'
 			});
 
-			const { account: sessionAccount } = createSessionClient(event);
+			const { account: sessionAccount, tablesDB } = createSessionClient(event);
 
 			const promise = sessionAccount.createVerification(`${BASE_URL}/auth/verify`);
 
@@ -42,7 +42,22 @@ export const actions: Actions = {
 				.then(() => console.log('Verification email sent successfully'))
 				.catch((error) => console.log(error));
 
-				
+			const userData = await tablesDB.createRow({
+				databaseId: '68c2ff7100366d79a1d2',
+				tableId: 'user_profile',
+				rowId: session.userId,
+				data: {
+					username: form.data.name,
+					bio: 'Rabbits are cute!',
+					avatarUrl: 'https://github.com/evilrabbit.png'
+				}
+			});
+
+			userData
+				.then(() => console.log('User data stored successfully'))
+				.catch((error) => console.log(error));
+
+			//
 		} catch (error) {
 			if (error.response) {
 				const errorMessage = JSON.parse(error.response);
