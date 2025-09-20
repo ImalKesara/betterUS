@@ -80,9 +80,9 @@
 		<Button loading class="mt-10">Loading...</Button>
 	{:else}
 		{#each posts as post}
-			<div class="my-2 grid p-4 border-[1px] rounded-2xl border-gray-400" transition:fade>
+			<div class="my-2 grid rounded-2xl border-[1px] border-gray-400 p-4" transition:fade>
 				<div class="grid">
-					<p class="break-words mb-3">{post.content}</p>
+					<p class="mb-3 break-words">{post.content}</p>
 					<div>
 						<hr class="border-[1px] border-dashed border-gray-400" />
 						<div class="my-2 grid grid-cols-3 justify-items-center">

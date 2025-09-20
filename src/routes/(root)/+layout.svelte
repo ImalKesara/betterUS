@@ -18,18 +18,22 @@
 
 <Toaster />
 
-<div class="mx-auto flex min-h-screen max-w-6xl">
-	<Navbar {user} {profile} />
+<div class="mx-auto grid min-h-screen max-w-6xl grid-cols-12">
+	<div class="col-span-3 hidden border-r border-gray-400 md:block">
+		<Navbar {user} {profile} />
+	</div>
 
-	<main class="mx-auto max-w-2xl flex-1 border-[1px] border-y-0 border-gray-400 p-4">
-		<div class="gap-x-1 flex items-center justify-center p-4">
+	<main class="col-span-6 px-3">
+		<div class="flex items-center justify-center gap-x-1 p-4">
 			<span class="text-xl font-bold">BetterUs</span>
 			<span class="text-xl">
-				<Heart size="20" fill="red" />
+				<Heart size="22" fill="red" />
 			</span>
 		</div>
 		{@render children?.()}
 	</main>
 
-	<Footer />
+	<div class="col-span-3 hidden border-l border-gray-400 md:block">
+		<Footer />
+	</div>
 </div>
