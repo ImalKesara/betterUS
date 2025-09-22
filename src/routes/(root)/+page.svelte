@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Post from '$lib/components/Post.svelte';
 	import { postModal } from '$lib/state/modal.svelte';
-	import { Jumper } from 'svelte-loading-spinners';
 	import { fade } from 'svelte/transition';
 	import { Heart, MessageSquare, Repeat } from 'lucide-svelte';
 	import { onMount } from 'svelte';
@@ -13,7 +12,15 @@
 
 	let { data } = $props();
 	let loading: boolean = $state(true);
-	let posts: any[] = $state([]);
+	interface Post {
+		$id: string;
+		content: string;
+		imgUrl: string | null;
+		created_at: string;
+		updated_at: string;
+	}
+	let posts: Post[] = $state([]);
+	let liked: boolean = $state(false);
 
 	const handleClick = () => {
 		postModal.setTrue();
@@ -52,6 +59,12 @@
 		}
 	};
 
+	let likedPosts: { [postId: string]: boolean } = $state({});
+	const toggleLike = async (postId: string) => {
+		likedPosts[postId] = !likedPosts[postId];
+		console.log($state.snapshot(likedPosts));
+	};
+
 	onMount(async () => {
 		if (page.url.searchParams.get('login') === 'success') {
 			toast.success(`Welcome ${data.user.name}`);
@@ -70,7 +83,6 @@
 				placeholder="Your thoughts..."
 				onclick={handleClick}
 			/>
-
 			<Post handleSubmit={submitPost} />
 		</label>
 	</div>
@@ -79,14 +91,22 @@
 	{#if loading}
 		<Button loading class="mt-10">Loading...</Button>
 	{:else}
-		{#each posts as post}
+		{#each posts as post (post.$id)}
 			<div class="my-2 grid rounded-2xl border-[1px] border-gray-400 p-4" transition:fade>
 				<div class="grid">
 					<p class="mb-3 break-words">{post.content}</p>
 					<div>
-						<hr class="border-[1px] border-dashed border-gray-400" />
 						<div class="my-2 grid grid-cols-3 justify-items-center">
-							<Heart size="16" />
+							<Button
+								size="sm"
+								variant="default"
+								rounded="full"
+								onclick={() => toggleLike(post.$id)}
+							>
+								<span transition:fade>
+									<Heart size="16" fill={likedPosts[post.$id] ? 'red' : 'none'} />
+								</span>
+							</Button>
 							<Repeat size="16" />
 							<MessageSquare size="16" />
 						</div>
